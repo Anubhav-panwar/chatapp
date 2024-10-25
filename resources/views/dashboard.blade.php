@@ -8,10 +8,19 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                <div class="p-6 text-gray-900 dark:text-gray-100" id="chatBox">
+                    {{ __("You're logged in!") }} mesage
                 </div>
+                
             </div>
         </div>
     </div>
+    <script>
+        Echo.private(`chat.${receiverUserId}`)
+    .listen('MessageSent', (e) => {
+        console.log('Message received:', e.message);
+        // Append the message to the chat box or update the UI
+        $('#chatBox').append('<p>' + e.message.content + '</p>');
+    });
+    </script>
 </x-app-layout>
